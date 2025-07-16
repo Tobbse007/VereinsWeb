@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#f3f4f6" />
+  
+  <!-- Decorative elements -->
+  <rect x="100" y="150" width="600" height="300" rx="8" fill="#e0e7ff" />
+  
+  <!-- Music-themed elements -->
+  <circle cx="250" cy="250" r="60" fill="#818cf8" opacity="0.8" />
+  <circle cx="550" cy="350" r="80" fill="#6366f1" opacity="0.8" />
+  <circle cx="400" cy="200" r="40" fill="#4f46e5" opacity="0.8" />
+  
+  <!-- Music notes -->
+  <path d="M300 220 Q350 180 400 220" stroke="#4f46e5" stroke-width="5" fill="none" />
+  <circle cx="300" cy="220" r="18" fill="#4f46e5" />
+  <circle cx="400" cy="220" r="18" fill="#4f46e5" />
+  
+  <path d="M350 300 Q400 260 450 300" stroke="#4f46e5" stroke-width="5" fill="none" />
+  <circle cx="350" cy="300" r="18" fill="#4f46e5" />
+  <circle cx="450" cy="300" r="18" fill="#4f46e5" />
+  
+  <!-- Text placeholder -->
+  <rect x="250" y="400" width="300" height="40" rx="4" fill="#a5b4fc" />
+  <rect x="280" y="460" width="240" height="20" rx="4" fill="#a5b4fc" opacity="0.7" />
+</svg>

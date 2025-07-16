@@ -1,0 +1,493 @@
+/* Modern Pricing Section Styles */
+
+/* Card Base Styles */
+.pricing-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.pricing-card-inner {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Unified Card Face Styles */
+.pricing-card-face {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 40px -10px rgba(109, 40, 217, 0.25),
+    0 4px 15px -5px rgba(109, 40, 217, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  transition: all 0.5s ease;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.pricing-card:hover .pricing-card-face {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 20px 50px -15px rgba(109, 40, 217, 0.3),
+    0 10px 30px -15px rgba(109, 40, 217, 0.2),
+    inset 0 2px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* Feature Lists */
+.feature-item {
+  transition: all 0.3s ease;
+  border-radius: 0.75rem;
+}
+
+.feature-item:hover {
+  transform: translateX(4px);
+}
+
+.feature-icon {
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover .feature-icon {
+  transform: scale(1.15);
+}
+
+/* CTA Button */
+.pricing-cta {
+  transition: all 0.3s ease;
+  transform-origin: center;
+  background-size: 200% auto;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.pricing-cta:hover {
+  background-position: right center;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+}
+
+/* Updated pricing CTA buttons */
+.pricing-card a[href="#kontakt"] {
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.pricing-card a[href="#kontakt"] div.flex {
+  flex-direction: column;
+}
+
+.pricing-card a[href="#kontakt"] span:first-child {
+  margin-right: 0;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.pricing-card a[href="#kontakt"] span.text-xs {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: normal;
+  letter-spacing: 0.01em;
+}
+
+/* Decorative elements */
+.deco-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.5;
+  filter: blur(15px);
+  transition: all 0.6s ease;
+  z-index: -1;
+}
+
+.pricing-card:hover .deco-circle {
+  transform: scale(1.15) translateY(-10px);
+  opacity: 0.65;
+  filter: blur(10px);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover .pricing-badge {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation delay utility classes */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+
+/* Price animation */
+@keyframes pricePop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+.price-amount {
+  position: relative;
+  text-shadow: 0 0 1px rgba(109, 40, 217, 0.3);
+  letter-spacing: -0.02em;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-size: 200% 200%;
+  background-position: left center;
+}
+
+.pricing-card:hover .price-amount {
+  animation: pricePop 2s ease-in-out infinite;
+  transform: scale(1.03);
+  background-position: right center;
+  text-shadow: 2px 2px 8px rgba(109, 40, 217, 0.3);
+  letter-spacing: 0.01em;
+}
+
+/* Price container - simplified */
+.pricing-card .flex.items-baseline {
+  position: relative;
+  padding: 0.25rem 0;
+  transform-origin: center;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+/* Info box styles */
+.pricing-info-box {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -15px rgba(139, 92, 246, 0.2);
+}
+
+.pricing-info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px -10px rgba(139, 92, 246, 0.25);
+}
+
+/* Package comparison styles */
+.package-comparison-header {
+  position: relative;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.package-comparison-header:hover {
+  background-color: rgba(139, 92, 246, 0.05);
+}
+
+.package-comparison-arrow {
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown for package comparison - interactive implementation */
+.package-comparison-content {
+  display: none;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.package-comparison-content.active {
+  display: block;
+  animation: fadeDown 0.4s ease forwards;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Package Finder Wizard */
+.package-finder {
+  position: relative;
+}
+
+.package-finder-step {
+  display: none;
+  animation: stepFadeIn 0.5s ease forwards;
+}
+
+.package-finder-step.active {
+  display: block;
+}
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes stepFadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+/* Custom Radio and Checkbox Styles */
+.finder-option-item input[type="radio"]:checked + div,
+.finder-option-item input[type="checkbox"]:checked + div {
+  border-color: #7c3aed; /* primary.600 */
+  background-color: rgba(124, 58, 237, 0.1); /* primary.50 */
+  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.2);
+}
+
+.finder-option-item input[type="radio"]:checked + div div,
+.finder-option-item input[type="checkbox"]:checked + div div {
+  background-color: #7c3aed; /* primary.600 */
+  border-color: #7c3aed; /* primary.600 */
+  position: relative;
+}
+
+.finder-option-item input[type="radio"]:checked + div div::after {
+  content: '';
+  position: absolute;
+  width: 60%;
+  height: 60%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 50%;
+}
+
+.finder-option-item input[type="checkbox"]:checked + div div::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 50%;
+  left: 50%;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Result Styles */
+.package-recommendation {
+  position: relative;
+  overflow: hidden;
+}
+
+.package-recommendation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, transparent, rgba(139, 92, 246, 0.1));
+  z-index: 0;
+  border-radius: 0 0 0 100%;
+}
+
+/* Responsive Buttons */
+@media (max-width: 640px) {
+  .package-finder .flex.justify-between {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .package-finder .flex.justify-between button {
+    width: 100%;
+  }
+}
+
+/* Make info box wider */
+.pricing-info-box {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Highlighted card styles - new implementation */
+.highlighted-card {
+  position: relative;
+  border: none !important;
+  box-shadow: 
+    0 10px 25px -5px rgba(139, 92, 246, 0.4),
+    0 0 15px -2px rgba(139, 92, 246, 0.3) !important;
+  z-index: 1;
+}
+
+.highlighted-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, #c4b5fd, #8b5cf6, #6d28d9, #a78bfa);  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background-size: 300% 100%;
+  animation: borderGloss 6s ease infinite;
+  pointer-events: none;
+}
+
+.highlighted-card:hover::before {
+  background: linear-gradient(135deg, #ddd6fe, #7c3aed, #4c1d95, #a78bfa);
+  animation: borderGloss 4s ease infinite;
+}
+
+.highlighted-card:hover {
+  box-shadow: 
+    0 20px 30px -10px rgba(139, 92, 246, 0.5),
+    0 0 20px -2px rgba(139, 92, 246, 0.4) !important;
+}
+
+@keyframes borderGloss {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Custom pricing section patterns */
+.pricing-pattern {
+  position: absolute;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Premium price - simplified */
+.premium-price {
+  background-image: linear-gradient(135deg, 
+    #8b5cf6 0%,
+    #6d28d9 100%);
+}
+
+.premium-price::after {
+  color: rgba(109, 40, 217, 0.2);
+  filter: blur(5px);
+}
+
+/* Decorative corner elements with blur */
+.pricing-card .absolute.top-0.right-0,
+.pricing-card .absolute.bottom-0.left-0 {
+  filter: blur(15px);
+  opacity: 0.6;
+  transition: all 0.4s ease;
+}
+
+.pricing-card:hover .absolute.top-0.right-0,
+.pricing-card:hover .absolute.bottom-0.left-0 {
+  filter: blur(10px);
+  opacity: 0.75;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pricing-card-face {
+    transform: none !important;
+  }
+}
+
+/* More compact pricing cards */
+.pricing-card .p-8 {
+  padding: 1.25rem !important;
+}
+
+.pricing-card h3.text-2xl {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.pricing-card p.mb-6 {
+  margin-bottom: 0.75rem !important;
+}
+
+.pricing-card .space-y-4 {
+  margin-top: 0.25rem !important;
+}
+
+.pricing-card ul.space-y-4,
+.pricing-card ul.space-y-2 {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
+}
+
+.pricing-card ul li {
+  padding-top: 0.15rem !important;
+  padding-bottom: 0.15rem !important;
+  font-size: 0.95rem;
+}
+
+.pricing-card .mb-4 {
+  margin-bottom: 0.5rem !important;
+}
+
+/* Make price text smaller for more compact layout */
+.pricing-card .price-amount {
+  font-size: 3.25rem !important;
+}
+
+/* Adjust button spacing */
+.pricing-card .mt-8 {
+  margin-top: 0.75rem !important;
+}
+
+/* Smaller feature markers */
+.pricing-card .w-7.h-7,
+.pricing-card .w-6.h-6 {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  min-width: 1.25rem !important;
+}
+
+/* Adjust padding of bottom section */
+.pricing-card .pt-6 {
+  padding-top: 0.75rem !important;
+}
+
+/* Make all the pricing cards more compact in height */
+.pricing-card > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card .flex-grow {
+  flex-grow: 1;
+  overflow-y: hidden; /* Prevent scrollbars */
+}

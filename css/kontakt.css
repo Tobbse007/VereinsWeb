@@ -1,0 +1,318 @@
+/* Styles für das mehrseitige Kontaktformular */
+
+/* Glaseffekt für Formularbereiche */
+.glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Hover-Effekt für Formularelemente */
+.form-step input:hover,
+.form-step textarea:hover,
+.form-step select:hover {
+  border-color: #a78bfa;
+}
+
+/* Fokus-Stil für Formularelemente */
+.form-step input:focus,
+.form-step textarea:focus,
+.form-step select:focus {
+  outline: none;
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+}
+
+/* Entfernung der roten Umrandung für invalide Felder */
+.form-step input:invalid,
+.form-step textarea:invalid,
+.form-step select:invalid {
+  border-color: #d1d5db; /* Grauer Rand statt rot */
+  box-shadow: none;
+}
+
+/* Fehler-Stil nur nach Validierung */
+.form-step input.validation-failed,
+.form-step textarea.validation-failed,
+.form-step select.validation-failed {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+/* Stil für Radio- und Checkbox-Elemente */
+.form-step input[type="radio"] {
+  accent-color: #8b5cf6;
+  width: 1rem;
+  height: 1rem;
+}
+
+.form-step input[type="checkbox"] {
+  accent-color: #8b5cf6;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Hover-Effekt für Radio/Checkbox-Container */
+.form-step label.flex.items-center:hover,
+.form-step label.flex.items-start:hover {
+  background-color: rgba(167, 139, 250, 0.05);
+}
+
+/* Stil für ausgewählte Radio/Checkbox-Container */
+.form-step input[type="radio"]:checked + span,
+.form-step input[type="checkbox"]:checked + span {
+  color: #6d28d9;
+  font-weight: 500;
+}
+
+.form-step input[type="radio"]:checked ~ div,
+.form-step input[type="checkbox"]:checked ~ div {
+  border-color: #8b5cf6;
+  background-color: rgba(139, 92, 246, 0.05);
+}
+
+/* Animation für Fortschrittsbalken */
+#progress-bar {
+  transition: width 0.4s ease;
+}
+
+/* Animation für Schritte */
+.form-step {
+  opacity: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-height: 350px; /* Kompaktere Höhe für alle Schritte */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.form-step.hidden {
+  display: none;
+  opacity: 0;
+}
+
+/* Deckblatt Styling */
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 320px; /* Noch kompaktere Höhe */
+  padding: 1rem 1rem 1.25rem; /* Angepasstes Padding (oben, links/rechts, unten) */
+}
+
+.cover-page-header {
+  text-align: center;
+  margin-bottom: 1rem; /* Kleinerer Abstand */
+}
+
+.cover-page-content {
+  display: grid;
+  grid-template-columns: 30% 70%; /* Noch weniger Platz für die Kontaktinfos, mehr für das Formular */
+  gap: 0.75rem; /* Weiter verringerter Abstand */
+  flex: 1;
+}
+
+.cover-page-contact {
+  background-color: rgba(245, 243, 255, 0.7);
+  border-radius: 0.75rem;
+  padding: 0.75rem; /* Noch weniger Padding */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtiler Schatten für mehr Tiefe */
+}
+
+.cover-page-form {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem; /* Angepasstes Padding */
+  border: 1px solid rgba(237, 233, 254, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtiler Schatten für mehr Tiefe */
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start; /* Start-Ausrichtung für bessere Darstellung */
+  margin-bottom: 0.5rem; /* Kleinerer Abstand */
+}
+
+.contact-icon {
+  width: 1.5rem; /* Noch kleinere Icons */
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #8b5cf6, #6d28d9);
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem; /* Vertikale Ausrichtung verbessern */
+}
+
+.contact-icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+/* Hover-Effekt für Kontakt-Icons */
+.contact-item:hover .contact-icon {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+/* Verbesserte visuelle Darstellung der Kontaktsektion */
+.cover-page-contact h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  padding-bottom: 0.35rem;
+}
+
+/* Kompaktere Darstellung der Adresse */
+.contact-item address {
+  line-height: 1.3;
+  font-size: 0.9rem;
+}
+
+/* Verbessertes Layout für Social Media Icons */
+.mt-4.flex.gap-3 {
+  margin-top: 0.5rem; /* Weniger Abstand */
+  justify-content: space-between; /* Gleichmäßige Verteilung */
+  padding: 0 0.25rem;
+}
+
+/* Kompaktere Formularelemente für das Deckblatt */
+.cover-page-form input,
+.cover-page-form textarea {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.cover-page-form label {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.cover-page-form .divider {
+  margin: 1rem 0;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+/* Buttons */
+.next-step, .prev-step {
+  transition: all 0.3s ease;
+}
+
+.next-step:hover svg, .prev-step:hover svg {
+  transform: translateX(4px);
+}
+
+.prev-step:hover svg {
+  transform: translateX(-4px);
+}
+
+/* Ripple-Effekt für Buttons */
+.next-step, .prev-step {
+  position: relative;
+  overflow: hidden;
+}
+
+.next-step::after, .prev-step::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.next-step:focus:not(:active)::after,
+.prev-step:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Button für das Deckblatt */
+.start-survey-btn {
+  padding: 0.75rem 1.5rem;
+  background-image: linear-gradient(to right, #8b5cf6, #7c3aed);
+  color: white;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+  transform: translateY(0);
+}
+
+.start-survey-btn:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  background-image: linear-gradient(to right, #7c3aed, #6d28d9);
+}
+
+/* Neuer Erstentwurf-Bereich über gesamte Breite */
+.bg-gradient-to-r {
+  transition: all 0.3s ease;
+}
+
+.bg-gradient-to-r:hover {
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {  .next-step span, .prev-step span {
+    font-size: 0.9rem;
+  }
+  
+  .form-step h4 {
+    font-size: 1.25rem;
+  }
+  
+  .form-step {
+    min-height: 320px; /* Kompaktere Höhe */
+  }
+  
+  .cover-page {
+    min-height: auto;
+  }
+  
+  .cover-page-content {
+    grid-template-columns: 1fr;
+    gap: 0.75rem; /* Weniger Abstand */
+  }
+  
+  .cover-page-contact {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-info-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Zwei Spalten auf mobilen Geräten */
+    gap: 0.5rem; /* Weniger Abstand */
+  }
+}

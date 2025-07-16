@@ -1,0 +1,303 @@
+// Mehrseitiges Kontaktformular Funktionalität
+document.addEventListener('DOMContentLoaded', function() {
+  // Überprüfen, ob wir auf der richtigen Seite sind (mit dem Formular)
+  const multiStepForm = document.getElementById('multi-step-form');
+  const formSteps = document.querySelectorAll('.form-step');
+  const nextButtons = document.querySelectorAll('.next-step');
+  const prevButtons = document.querySelectorAll('.prev-step');
+  const progressBar = document.getElementById('progress-bar');
+  const stepIndicator = document.querySelector('.progress-indicator');
+  const currentStepEl = document.getElementById('current-step');
+  const totalStepsEl = document.getElementById('total-steps');
+  
+  // Wenn keine Formularelemente vorhanden sind, Funktion abbrechen
+  if (!multiStepForm || formSteps.length === 0) return;
+  
+  // Aktuellen Schritt verfolgen
+  let currentStep = 1;
+  const totalSteps = formSteps.length;
+  
+  // Fortschrittsanzeige initialisieren
+  if (totalStepsEl) totalStepsEl.textContent = totalSteps;
+  if (currentStepEl) currentStepEl.textContent = currentStep;
+  
+  // Initialisiere zusätzliche abhängige Formularfelder
+  setupDependentFields();
+  
+  // Alle Schritte ausblenden und ersten Schritt anzeigen
+  formSteps.forEach(step => step.classList.add('hidden'));
+  const firstStep = document.querySelector(`.form-step[data-step="1"]`);
+  if (firstStep) {
+    firstStep.classList.remove('hidden');
+  }
+  
+  // Fortschrittsbalken aktualisieren
+  function updateProgressBar() {
+    if (progressBar) {
+      const progressPercentage = (currentStep / totalSteps) * 100;
+      progressBar.style.width = `${progressPercentage}%`;
+    }
+    
+    // Schritt-Anzeige aktualisieren
+    if (currentStepEl) {
+      currentStepEl.textContent = currentStep;
+    }
+    
+    // Zeige Fortschrittsanzeige nur an, wenn es mehr als einen Schritt gibt
+    if (totalSteps > 1 && stepIndicator) {
+      stepIndicator.style.display = 'block';
+    }
+  }
+  
+  // Event-Listener für "Weiter"-Buttons
+  if (nextButtons) {
+    nextButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (validateCurrentStep()) {
+          goToNextStep();
+        }
+      });
+    });
+  }
+  
+  // Event-Listener für "Zurück"-Buttons
+  if (prevButtons) {
+    prevButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        goToPrevStep();
+      });
+    });
+  }
+  
+  // Zum nächsten Schritt gehen
+  function goToNextStep() {
+    const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    const nextFormStep = document.querySelector(`.form-step[data-step="${currentStep + 1}"]`);
+    
+    // Prüfe, ob wir den letzten Schritt erreicht haben
+    if (currentStep < totalSteps) {
+      // Aktuellen Schritt ausblenden
+      currentFormStep.classList.add('hidden');
+      
+      // Nächsten Schritt einblenden
+      nextFormStep.classList.remove('hidden');
+      
+      // Fortschritt aktualisieren
+      currentStep++;
+      updateProgressBar();
+      
+      // Nach oben scrollen zur Formularposition
+      window.scrollTo({
+        top: multiStepForm.offsetTop - 100,
+        behavior: 'smooth'
+      });
+    } else {
+      // Wenn wir beim letzten Schritt sind, das Formular absenden
+      // multiStepForm.submit();
+    }
+  }
+  
+  // Zum vorherigen Schritt gehen
+  function goToPrevStep() {
+    const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    const prevFormStep = document.querySelector(`.form-step[data-step="${currentStep - 1}"]`);
+    
+    if (currentStep > 1) {
+      // Aktuellen Schritt ausblenden
+      currentFormStep.classList.add('hidden');
+      
+      // Vorherigen Schritt einblenden
+      prevFormStep.classList.remove('hidden');
+      
+      // Fortschritt aktualisieren
+      currentStep--;
+      updateProgressBar();
+      
+      // Nach oben scrollen zur Formularposition
+      window.scrollTo({
+        top: multiStepForm.offsetTop - 100,
+        behavior: 'smooth'
+      });
+    }
+  }
+  
+  // Validiere den aktuellen Schritt
+  function validateCurrentStep() {
+    const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+    const requiredFields = currentFormStep.querySelectorAll('[required]');
+    let isValid = true;
+    
+    // Alle erforderlichen Felder auf Gültigkeit prüfen
+    requiredFields.forEach(field => {
+      if (field.type === 'checkbox' || field.type === 'radio') {
+        if (!field.checked) {
+          isValid = false;
+          highlightInvalidField(field);
+        } else {
+          removeInvalidHighlight(field);
+        }
+      } else if (field.value.trim() === '') {
+        isValid = false;
+        highlightInvalidField(field);
+      } else {
+        // Zusätzliche Validierung für E-Mail-Felder
+        if (field.type === 'email' && !validateEmail(field.value)) {
+          isValid = false;
+          highlightInvalidField(field, 'Bitte geben Sie eine gültige E-Mail-Adresse ein.');
+        } else {
+          removeInvalidHighlight(field);
+        }
+      }
+    });
+    
+    return isValid;
+  }
+  
+  // Überprüfe, ob eine E-Mail-Adresse gültig ist
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  }
+  
+  // Ungültiges Feld hervorheben
+  function highlightInvalidField(field, message = 'Dieses Feld ist erforderlich.') {
+    field.classList.add('border-red-500');
+    
+    // Falls bereits eine Fehlermeldung existiert, nicht noch eine hinzufügen
+    let errorElement = field.nextElementSibling;
+    if (!errorElement || !errorElement.classList.contains('validation-error')) {
+      errorElement = document.createElement('p');
+      errorElement.className = 'text-red-500 text-xs mt-1 validation-error';
+      errorElement.textContent = message;
+      field.parentNode.insertBefore(errorElement, field.nextSibling);
+    }
+    
+    field.classList.add('validation-failed');
+  }
+  
+  // Hervorhebung des ungültigen Feldes entfernen
+  function removeInvalidHighlight(field) {
+    field.classList.remove('border-red-500');
+    
+    // Fehlermeldung entfernen, falls vorhanden
+    const errorElement = field.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('validation-error')) {
+      errorElement.remove();
+    }
+    
+    field.classList.remove('validation-failed');
+  }
+  
+  // Erfolgsmeldung anzeigen
+  function showSuccessMessage() {
+    // Formular ausblenden
+    multiStepForm.style.display = 'none';
+    
+    // Container für die Erfolgsmeldung
+    const formContainer = document.querySelector('.glass.rounded-2xl');
+    
+    // Erfolgsmeldung erstellen
+    const successMessage = document.createElement('div');
+    successMessage.className = 'py-8 px-8';
+    successMessage.innerHTML = `
+      <div class="text-center">
+        <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-800">Vielen Dank für Ihre Anfrage!</h3>
+        <p class="text-gray-600 mb-6">Wir haben alle Informationen erhalten und werden Ihren kostenlosen Erstentwurf erstellen. Sie hören innerhalb der nächsten 24-48 Stunden von uns.</p>
+        
+        <div class="p-6 bg-primary-50 rounded-xl border border-primary-100 mb-6">
+          <h4 class="font-semibold text-primary-700 mb-2">Ihre nächsten Schritte:</h4>
+          <ol class="text-left space-y-3 text-gray-700">
+            <li class="flex items-start">
+              <span class="flex-shrink-0 bg-primary-100 w-6 h-6 rounded-full flex items-center justify-center text-primary-700 font-bold mr-2">1</span>
+              <span>Wir erstellen Ihren kostenlosen Erstentwurf basierend auf Ihren Angaben.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="flex-shrink-0 bg-primary-100 w-6 h-6 rounded-full flex items-center justify-center text-primary-700 font-bold mr-2">2</span>
+              <span>Sie erhalten eine E-Mail mit dem Zugang zu Ihrem Erstentwurf.</span>
+            </li>
+            <li class="flex items-start">
+              <span class="flex-shrink-0 bg-primary-100 w-6 h-6 rounded-full flex items-center justify-center text-primary-700 font-bold mr-2">3</span>
+              <span>Gemeinsam besprechen wir mögliche Anpassungen und das weitere Vorgehen.</span>
+            </li>
+          </ol>
+        </div>
+        
+        <a href="pages/kontakt/index.html" class="inline-block px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transform transition-all duration-300 hover:-translate-y-0.5">
+          Noch Fragen?
+        </a>
+      </div>
+    `;
+    
+    // Fortschrittsanzeige ausblenden
+    const progressContainer = formContainer.querySelector('.bg-white.border-b');
+    if (progressContainer) {
+      progressContainer.style.display = 'none';
+    }
+    
+    // Formularcontainer leeren und Erfolgsmeldung einfügen
+    const formContent = formContainer.querySelector('.p-8');
+    formContent.innerHTML = '';
+    formContent.appendChild(successMessage);
+    
+    // Nach oben scrollen, damit die Nachricht sichtbar ist
+    window.scrollTo({
+      top: formContainer.offsetTop - 100,
+      behavior: 'smooth'
+    });
+  }
+  
+  // Setup von abhängigen Feldern
+  function setupDependentFields() {
+    // Beispiel für ein abhängiges Feld
+    const vereinsArtSelect = document.getElementById('vereins-art');
+    const sportDetailsDiv = document.getElementById('sport-details');
+    const kulturDetailsDiv = document.getElementById('kultur-details');
+    const sozialDetailsDiv = document.getElementById('sozial-details');
+    
+    if (vereinsArtSelect) {
+      // Initial-Status setzen
+      updateDependentFields();
+      
+      // Event-Listener für Änderungen
+      vereinsArtSelect.addEventListener('change', updateDependentFields);
+      
+      function updateDependentFields() {
+        const selectedOption = vereinsArtSelect.value;
+        
+        // Alle Detail-Bereiche ausblenden
+        if (sportDetailsDiv) sportDetailsDiv.classList.add('hidden');
+        if (kulturDetailsDiv) kulturDetailsDiv.classList.add('hidden');
+        if (sozialDetailsDiv) sozialDetailsDiv.classList.add('hidden');
+        
+        // Relevanten Detail-Bereich einblenden
+        if (selectedOption === 'sport' && sportDetailsDiv) {
+          sportDetailsDiv.classList.remove('hidden');
+        } else if (selectedOption === 'kultur' && kulturDetailsDiv) {
+          kulturDetailsDiv.classList.remove('hidden');
+        } else if (selectedOption === 'sozial' && sozialDetailsDiv) {
+          sozialDetailsDiv.classList.remove('hidden');
+        }
+      }
+    }
+  }
+  
+  // Event-Listener für das Formular-Submit
+  if (multiStepForm) {
+    multiStepForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      if (validateCurrentStep()) {
+        // Hier würde normalerweise der Code für die Formularübermittlung stehen
+        // z.B. mit fetch API oder AJAX
+        
+        // Für diesen Prototyp zeigen wir nur eine Erfolgsmeldung an
+        showSuccessMessage();
+      }
+    });
+  }
+});

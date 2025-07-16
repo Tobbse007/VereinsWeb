@@ -1,0 +1,184 @@
+/* ===== SERVICES SECTION STYLES ===== */
+
+/* Service Box Base Styles - Enhanced Glassmorphism */
+.glass.group {
+  position: relative;
+  transition: all 0.3s ease;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(139, 92, 246, 0.1);
+  overflow: hidden;
+}
+
+/* Glaseffekt-Verstärkung durch Pseudo-Element */
+.glass.group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  border-radius: 1rem 1rem 0 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Verbesserte glasige Icons */
+.glass.group .mb-6.p-4.bg-primary-50.rounded-full {
+  background: rgba(139, 92, 246, 0.07);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 
+    0 4px 12px rgba(139, 92, 246, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.7);
+}
+
+/* Glasige Tags */
+.glass.group .px-3.py-1.bg-primary-50 {
+  background: rgba(139, 92, 246, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
+}
+
+/* Moderne Typografie für Service-Boxen */
+.glass.group h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.glass.group p {
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.6;
+}
+
+.glass.group .px-3.py-1.bg-primary-50 {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Base styles for elements that will be affected by JS hover effects */
+.glass.group h3,
+.glass.group p,
+.glass.group .px-3.py-1.bg-primary-50,
+.glass.group .p-8 {
+  transition: all 0.3s ease;
+}
+
+/* Entferne jegliche Transition-Effekte vom Icon */
+.glass.group .mb-6.p-4.bg-primary-50.rounded-full {
+  transition: none;
+}
+
+/* Sicherstellen, dass der Inhalt über dem Pseudo-Element liegt */
+.glass.group .p-8 {
+  position: relative;
+  z-index: 1;
+}
+
+/* Styles für Erfolgsmeldung nach Formularabsendung */
+.thank-you-message {
+  display: none;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.thank-you-message.active {
+  display: block;
+}
+
+.thank-you-icon {
+  background-color: rgba(139, 92, 246, 0.1);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.thank-you-icon svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-primary-600);
+}
+
+/* Formular-Validierung Styles */
+.validation-error,
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Spezifische Stile für die error-message Klasse, wie in form-validation-fix.js verwendet */
+.error-message {
+  background-color: rgba(254, 226, 226, 0.5);
+  border-left: 3px solid #ef4444;
+  padding: 6px 10px;
+  border-radius: 0 4px 4px 0;
+}
+
+.border-red-500 {
+  border-color: #ef4444 !important;
+}
+
+input[type="checkbox"].border-red-500 {
+  outline: 2px solid #ef4444;
+}
+
+select.border-red-500 {
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+/* Shake-Animation deaktiviert auf Kundenwunsch */
+.shake-animation {
+  transform: none; /* Keine Animation, stattdessen fixe Position */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Animations for loading indicator */
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
