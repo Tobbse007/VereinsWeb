@@ -1,0 +1,56 @@
+.hover-active {
+    transform: translateY(-0.5rem) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+}
+
+.hover-active .absolute.inset-0.bg-gradient-to-br {
+    opacity: 1 !important;
+}
+
+.hover-active h3,
+.hover-active p {
+    color: white !important;
+}
+
+.hover-active .mt-4 {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+.hover-active .icon-box {
+    transform: scale(1.1) !important;
+    background: white !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05) !important;
+}
+
+.hover-active .icon-box svg {
+    color: #3370FF !important;
+}
+
+/* Leicht modifizierte Animationen für Mobile */
+@media (max-width: 767px) {
+    .hover-active {
+        transition: all 0.4s ease-out !important;
+    }
+    
+    .hover-active .absolute.inset-0.bg-gradient-to-br {
+        transition: opacity 0.4s ease-out !important;
+    }
+    
+    .hover-active h3,
+    .hover-active p {
+        transition: color 0.4s ease-out !important;
+    }
+    
+    .hover-active .mt-4 {
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out !important;
+    }
+    
+    .hover-active .icon-box {
+        transition: all 0.4s ease-out !important;
+    }
+    
+    .hover-active .icon-box svg {
+        transition: color 0.4s ease-out !important;
+    }
+}

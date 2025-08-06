@@ -1,0 +1,84 @@
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f7fa;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(51, 112, 255, 0.3);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3370FF;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 112, 255, 0.3) #f5f7fa;
+}
+
+* {
+  scrollbar-color: rgba(51, 112, 255, 0.3) #f5f7fa;
+}
+
+*:hover {
+  scrollbar-color: #3370FF #f5f7fa;
+}
+
+/* Modal specific scrollbar styling */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(51, 112, 255, 0.2);
+  border-radius: 3px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #3370FF;
+}
+
+/* For Firefox */
+.overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(51, 112, 255, 0.2) transparent;
+}
+
+.overflow-y-auto:hover {
+  scrollbar-color: #3370FF transparent;
+}
+
+/* Hide scrollbar when not scrolling but keep functionality */
+.overflow-y-auto {
+  scrollbar-width: thin;
+}
+
+@media (hover: hover) {
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overflow-y-auto:hover::-webkit-scrollbar-thumb {
+    opacity: 1;
+  }
+}
+
+/* Additional padding for modal content to prevent scrollbar from overlapping */
+.overflow-y-auto {
+  padding-right: 4px;
+}
