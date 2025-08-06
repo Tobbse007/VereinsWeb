@@ -1,7 +1,13 @@
-// Mobile menu functionality - Simplified Version
+// Mobile menu functionality - Optimized Version
+let menuInitialized = false;
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Mobile menu script loaded");
-    setupMobileMenu();
+    // Vermeiden einer doppelten Initialisierung
+    if (!menuInitialized) {
+        setupMobileMenu();
+        menuInitialized = true;
+    }
 });
 
 function setupMobileMenu() {
@@ -22,10 +28,7 @@ function setupMobileMenu() {
         return;
     }
     
-    console.log("Mobile menu elements found:", { 
-        button: mobileMenuButton, 
-        menu: mobileMenu 
-    });
+    console.log("Mobile menu elements found");
     
     // Funktion zum Aktualisieren des aktiven Menüpunkts im mobilen Menü
     function updateActiveMobileMenuItem() {
@@ -70,7 +73,6 @@ function setupMobileMenu() {
                 activeItem.classList.add('border-primary-blue');
                 activeItem.classList.add('bg-primary-blue/5');
                 activeItem.setAttribute('data-active', 'true');
-                console.log(`Aktiver mobiler Menüpunkt: ${activeItem.textContent.trim()}`);
             }
         }
     }
@@ -79,16 +81,22 @@ function setupMobileMenu() {
     mobileMenu.classList.add('h-0');
     mobileMenu.classList.remove('h-auto');
     
+    // Menü-Status
+    let isMenuOpen = false;
+    let isAnimating = false;
+    
     // Click-Handler hinzufügen
     mobileMenuButton.addEventListener('click', function(e) {
         e.preventDefault();
         
-        console.log("Mobile menu button clicked");
+        // Vermeiden von mehrfachen Klicks während der Animation
+        if (isAnimating) return;
+        
+        isAnimating = true;
         
         // Toggle zwischen offenen und geschlossenen Zuständen
-        if (mobileMenu.classList.contains('h-0')) {
+        if (!isMenuOpen) {
             // Menü öffnen
-            console.log("Opening menu");
             mobileMenu.classList.remove('h-0');
             mobileMenu.classList.add('h-auto');
             
@@ -99,36 +107,43 @@ function setupMobileMenu() {
             // Aktuelle Section bestimmen und aktiven Menüpunkt im mobilen Menü hervorheben
             updateActiveMobileMenuItem();
             
-            // Menüpunkte nacheinander einblenden
-            const menuItems = document.querySelectorAll('#mobile-menu .menu-item');
-            menuItems.forEach((item, index) => {
+            // Menüpunkte nacheinander einblenden - optimierte Animation
+            requestAnimationFrame(() => {
+                const menuItems = document.querySelectorAll('#mobile-menu .menu-item');
+                menuItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('show');
+                    }, 30 + (index * 30)); // Verkürzte Verzögerung für schnellere Reaktion
+                });
+                
+                // Animation als beendet markieren
                 setTimeout(() => {
-                    item.classList.add('show');
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0)';
-                }, 50 + (index * 50));
+                    isMenuOpen = true;
+                    isAnimating = false;
+                }, menuItems.length * 30 + 50);
             });
         } else {
             // Menü schließen
-            console.log("Closing menu");
             
             // Hamburger zurückverwandeln
             const hamburger = mobileMenuButton.querySelector('.hamburger-menu');
             if (hamburger) hamburger.classList.remove('menu-open');
             
-            // Menüpunkte ausblenden
+            // Menüpunkte ausblenden - vereinfachte Animation
             const menuItems = document.querySelectorAll('#mobile-menu .menu-item');
             menuItems.forEach(item => {
                 item.classList.remove('show');
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(10px)';
             });
             
             // Verzögert das Menü zuklappen
             setTimeout(() => {
                 mobileMenu.classList.remove('h-auto');
                 mobileMenu.classList.add('h-0');
-            }, 300);
+                
+                // Animation als beendet markieren
+                isMenuOpen = false;
+                isAnimating = false;
+            }, 200); // Verkürzte Verzögerung
         }
     });
     
@@ -136,7 +151,9 @@ function setupMobileMenu() {
     const menuLinks = document.querySelectorAll('#mobile-menu .nav-item');
     menuLinks.forEach(link => {
         link.addEventListener('click', function() {
-            mobileMenuButton.click();
+            if (isMenuOpen && !isAnimating) {
+                mobileMenuButton.click();
+            }
         });
     });
     
